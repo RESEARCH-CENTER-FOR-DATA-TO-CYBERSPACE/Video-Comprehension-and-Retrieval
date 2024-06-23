@@ -293,9 +293,8 @@ if __name__ == "__main__":
     video_path = args.video if args.video else './video.mp4'
 
     gpt_model = 'gpt-4o'
-    OPENAI_API_KEY = 'sk-xxx'
     client = OpenAI(
-        api_key=OPENAI_API_KEY
+        base_url='https://api.oaipro.com/v1'
     )
     speech_recognition_model = './model/vosk-model-cn-0.22'
     embedding_model = './model/uer_sbert-base-chinese-nli'
