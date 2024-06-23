@@ -3,6 +3,7 @@
 ## Usage
 1. 包含音频转文字，视频图像转文字，文字embeddding过程。
 
+- `export OPENAI_API_KEY='your-api-key-here'`
 - `python main.py -v video_path`
 
 2. video_embedding.json内容存入elasticsearch
