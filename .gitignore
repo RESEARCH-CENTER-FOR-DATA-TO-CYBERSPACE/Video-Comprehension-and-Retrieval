@@ -1,0 +1,8 @@
+*.mp4
+*.mov
+*.wav
+venv
+model
+*/tmp
+__pycache__
+*/capture_image
