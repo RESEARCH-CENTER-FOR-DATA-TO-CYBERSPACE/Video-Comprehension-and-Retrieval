@@ -32,12 +32,14 @@ parser = argparse.ArgumentParser(
 
 #parser.add_argument('-e', '--embeddings', help='provide the type of embeddings you want to use. The Valid types are : word2vec, doc2vec, USE, SBERT', nargs='+', default=['word2vec', 'doc2vec', 'USE', 'SBERT'])
 parser.add_argument('-q', '--query_text', help='provide the the text to be queried', required=False)
+parser.add_argument('-h', '--host', default='127.0.0.1', help='enter the host which the elasticsearch server listens to')
+parser.add_argument('-p', '--port', default=9200, help='enter the port which the elasticsearch server listens to')
 #parser.add_argument('-s', '--save_path', help='provide the path to the file you want to save the json file that contains the results', required=True)
 args = parser.parse_args()
 
 
 # Establish connection with the elasticsearch server
-es = Elasticsearch([{'host': '211.86.152.66', 'port':9200, 'scheme':'http'}])
+es = Elasticsearch([{'host': args.host, 'port':args.port, 'scheme':'http'}])
 
 # Read the text in the query file
 # with open(args.query_path, "r") as f:

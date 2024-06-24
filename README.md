@@ -7,16 +7,18 @@
 - `python main.py -v video_path`
 
 2. video_embedding.json内容存入elasticsearch
-- `python create_database.py -d data_path`
+- `python create_database.py -d data_path -h es_host -p es_port`
 
 3. 自然语言query
-- `python query.py -q question`
+- `python query.py -q question -h es_host -p es_port`
 
 4. model下载
 包含sbert-chinese和vosk-cn模型
-```
-链接：https://rec.ustc.edu.cn/share/98f237b0-3112-11ef-8840-898423b2c5db
-密码：rcdc
+- https://huggingface.co/uer/sbert-base-chinese-nli
+- https://alphacephei.com/vosk/models/vosk-model-cn-0.22.zip
+``` 
+zip：https://rec.ustc.edu.cn/share/98f237b0-3112-11ef-8840-898423b2c5db
+passwd：rcdc
 ```
 
 ## TODO
