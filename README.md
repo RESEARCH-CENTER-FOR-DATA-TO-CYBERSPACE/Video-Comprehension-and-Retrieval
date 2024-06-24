@@ -7,10 +7,10 @@
 - `python main.py -v video_path`
 
 2. video_embedding.json内容存入elasticsearch
-- `python create_database.py -d data_path -h es_host -p es_port`
+- `python create_database.py -d data_path --host es_host -p es_port`
 
 3. 自然语言query
-- `python query.py -q question -h es_host -p es_port`
+- `python query.py -q question --host es_host -p es_port`
 
 4. model下载
 包含sbert-chinese和vosk-cn模型

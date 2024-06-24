@@ -7,7 +7,7 @@ parser = argparse.ArgumentParser(
                     description='create the elasticsearch database and add the documents along with their embeddings')
 
 parser.add_argument('-d', '--data_path', help='enter the path to the .csv file that contains the embedding vectors')
-parser.add_argument('-h', '--host', default='127.0.0.1', help='enter the host which the elasticsearch server listens to')
+parser.add_argument('--host', default='127.0.0.1', help='enter the host which the elasticsearch server listens to')
 parser.add_argument('-p', '--port', default=9200, help='enter the port which the elasticsearch server listens to')
 
 # Parse the arguments
