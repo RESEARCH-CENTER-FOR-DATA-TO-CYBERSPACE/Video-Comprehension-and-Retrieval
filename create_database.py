@@ -7,6 +7,7 @@ parser = argparse.ArgumentParser(
                     description='create the elasticsearch database and add the documents along with their embeddings')
 
 parser.add_argument('-d', '--data_path', help='enter the path to the .csv file that contains the embedding vectors')
+parser.add_argument('--host', default='127.0.0.1', help='enter the host which the elasticsearch server listens to')
 parser.add_argument('-p', '--port', default=9200, help='enter the port which the elasticsearch server listens to')
 
 # Parse the arguments
@@ -14,7 +15,7 @@ args = parser.parse_args()
 import os
 
 # Establish connection with the elasticsearch server
-es = Elasticsearch([{'host': '211.86.152.66', 'port': 9200, 'scheme': 'http'}])
+es = Elasticsearch([{'host': args.host, 'port': args.port, 'scheme':'http'}])
 # Delete the Database if it exists
 es.options(ignore_status=[400, 404]).indices.delete(index='video_cases')
 

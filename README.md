@@ -10,7 +10,7 @@
 - `python create_database.py -d data_path --host es_host -p es_port`
 
 3. 自然语言query
-- `python query.py -q '朝代' --host '211.86.152.66' -p 9200`
+- `python query.py -q query --host es_host -p es_port`
 - 将embedding结果和全文搜索结果视为两路召回，将召回结果用于排序。排序部分目前是将得分采用归一化方法消除量纲影响（后续需要改进），最后取得分排名前三的结果呈现给用户
 
 4. model下载
