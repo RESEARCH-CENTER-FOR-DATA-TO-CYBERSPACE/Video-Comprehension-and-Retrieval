@@ -7,6 +7,7 @@ def parse_response(response):
 	similar_docs = []
 	for hit in response.body['hits']['hits']:
 		similar_doc = {
+			"videoID": hit['_source']['video_id'],
 			"docID": hit['_source']['time'],
 			"image_text": hit['_source']['image_text'],
 			"audio_text": hit['_source']['audio_text'],
@@ -39,7 +40,7 @@ args = parser.parse_args()
 
 
 # Establish connection with the elasticsearch server
-es = Elasticsearch([{'host': args.host, 'port':args.port, 'scheme':'http'}])
+es = Elasticsearch([{'host': args.host, 'port': args.port, 'scheme':'http'}])
 
 # Read the text in the query file
 # with open(args.query_path, "r") as f:
@@ -92,4 +93,28 @@ similar_docs = parse_response(response)
 results[str(embedding_type)] = similar_docs
 
 
-print(results)
+print(results.keys())
+
+
+
+# print(results['tf_idf'])
+# print(results[embedding_type])
+tf_idf_min = results['tf_idf'][-1]['similarity']
+tf_idf_max = results['tf_idf'][0]['similarity']
+emb_min = results[embedding_type][-1]['similarity']
+emb_max = results[embedding_type][0]['similarity']
+
+for item in results['tf_idf']:
+	item['similarity'] = (item['similarity']-tf_idf_min)/(tf_idf_max-tf_idf_min)
+for item in results[embedding_type]:
+	item['similarity'] = (item['similarity']-emb_min)/(emb_max-emb_min)
+
+total = results['tf_idf']+results[embedding_type]
+sorted_by_similarity_desc = sorted(total, key=lambda x: x['similarity'], reverse=True)
+
+print('**************************')
+print('以下是最有可能的前三个视频片段')
+for i in range(0,3):
+  tmp = sorted_by_similarity_desc[i]
+  print('您检索的信息存在于视频"'+tmp['videoID']+'"，且其时间为：'+tmp['docID'][0:2]+'小时'+''+tmp['docID'][3:5]+'分'+tmp['docID'][6:8]+'秒'+tmp['docID'][-3:]+'毫秒')
+print('**************************')
