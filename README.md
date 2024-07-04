@@ -27,7 +27,8 @@ passwd：rcdc
 ``` 
 gradio test_demo.py
 ```
-- 视频服务器使用了flask搭建，需要安装flask库，请求访问某个视频特定时间帧 (http://127.0.0.1:5000/?video=10.mp4&time=32)，返回页面展示该视频并从特定时间帧开始播放。视频播放界面前端html存于./templates/index.html，视频文件放在./static
+- 视频服务器使用了flask搭建，需要安装flask库，请求访问某个视频特定时间帧 (http://127.0.0.1:5000/?video=10.mp4&time=32)
+- 返回页面展示该视频并从特定时间帧开始播放。视频播放界面前端html存于./templates/index.html，视频文件放在./static
 ``` 
 python test_video_server.py
 ```
