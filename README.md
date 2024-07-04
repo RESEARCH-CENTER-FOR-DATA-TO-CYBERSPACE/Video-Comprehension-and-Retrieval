@@ -22,6 +22,16 @@ zip：https://rec.ustc.edu.cn/share/98f237b0-3112-11ef-8840-898423b2c5db
 passwd：rcdc
 ```
 
+5. 前端展示与视频服务器的搭建
+- 前端使用了gradio作为展示界面，需要安装gradio库。输入相关信息，查询elasticsearch，返回查询结果与视频的链接
+``` 
+gradio test_demo.py
+```
+- 视频服务器使用了flask搭建，需要安装flask库，请求访问某个视频特定时间帧 (http://127.0.0.1:5000/?video=10.mp4&time=32)，返回页面展示该视频并从特定时间帧开始播放。视频播放界面前端html存于./templates/index.html，视频文件放在./static
+``` 
+python test_video_server.py
+```
+
 ## TODO
 
 - [x] 音频、图像采样

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>视频分析服务器</title>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #f0f0f0;
+                font-family: Arial, sans-serif;
+            }
+            .container {
+                text-align: center;
+                background-color: #fff;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                border-radius: 8px;
+            }
+            h1 {
+                margin-bottom: 20px;
+                color: #333;
+            }
+            video {
+                width: 50vw;  /* 50% of viewport width */
+                height: 50vh; /* 50% of viewport height */
+                border-radius: 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>视频分析</h1>
+            <video id="video" controls autoplay>
+                <source src="{{ video_file }}" type="video/mp4">
+                您的浏览器不支持HTML5视频。
+            </video>
+            <script>
+                var video = document.getElementById('video');
+                var startTime='{{ start_time }}';
+                video.currentTime = startTime;
+                video.play();
+            </script>
+        </div>
+    </body>
+</html>
