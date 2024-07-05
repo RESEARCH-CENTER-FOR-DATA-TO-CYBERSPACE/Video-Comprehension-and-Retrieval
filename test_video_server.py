@@ -8,7 +8,7 @@ VIDEO_PATH = 'static/hash_folders/'
 
 @app.route('/')
 def index():
-    video_file = request.args.get('video', '6_.mp4')
+    video_file = request.args.get('video', 'left_half.mp4')
     start_time = request.args.get('time', '0')
     video_file = os.path.join(VIDEO_PATH, video_file)
     # 检查视频文件是否存在
