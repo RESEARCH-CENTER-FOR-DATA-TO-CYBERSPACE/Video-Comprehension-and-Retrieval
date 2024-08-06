@@ -259,13 +259,11 @@ def convert_img2text(clips_path):
     return contents
 
 
-def speech2text(video, mdoel_path, filename):
+def speech2text(video, mdoel_path, video_id):
     SetLogLevel(-1)
     model = Model(model_path=mdoel_path)
     logging.info("sp2t setup")
 
-
-    video_id = './hash_folders/' + filename
     os.makedirs(f"{video_id}/tmp")
 
     audio = f"{video_id}/audio.wav"
@@ -289,12 +287,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-v", "--video", type=str, required=False, default="./videos")
     args = parser.parse_args()
+    result_file_path = './hash_folders-gpt/'
 
-
-    gpt_model = 'gpt-4o'
     client = OpenAI(
         base_url='https://api.oaipro.com/v1'
     )
+
+    gpt_model = 'gpt-4o'
+
     speech_recognition_model = './model/vosk-model-cn-0.22'
     embedding_model = './model/uer_sbert-base-chinese-nli'
 
@@ -302,14 +302,14 @@ if __name__ == "__main__":
     for root, dirs, files in os.walk(args.video):
         for filename in files:
             video_path = os.path.join(root, filename)
-            logging.info('开始视频处理')
-            tmp_id = './hash_folders/' + filename
+            logging.info('开始视频处理，结果文件夹：' + result_file_path)
+            tmp_id = (result_file_path + filename).rsplit('.', 1)[0]
             try:
                 os.makedirs(tmp_id)
             except FileExistsError:
                 logging.info('已处理该视频文件，跳过')
                 continue
-            video_id = speech2text(video_path, speech_recognition_model, filename)  # 'd7b24747-fade-4765-91e4-40ce04d7865d'
+            video_id = speech2text(video_path, speech_recognition_model, tmp_id)  # 'd7b24747-fade-4765-91e4-40ce04d7865d'
             time_rate = 5  # 每隔timeRate(s)截取一帧
             time_delta = 30  # 每个切片time_delta(s)
 
@@ -330,7 +330,7 @@ if __name__ == "__main__":
             timestamps = None
 
             if os.path.exists(audio2text_path):
-                with open(audio2text_path, 'r') as file:
+                with open(audio2text_path, 'r', encoding='utf-8') as file:
                     timestamps = list(json.load(file).keys())
 
             # 视频帧采样
@@ -342,4 +342,3 @@ if __name__ == "__main__":
 
             # encode text using sbert
             encode_text(video_id, image2text_path, audio2text_path, embedding_path, embedding_model)
-

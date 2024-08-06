@@ -3,7 +3,7 @@
 *.wav
 venv
 model
-*/tmp
+**/tmp
 __pycache__
-*/capture_image
+**/capture_image
 back.bak

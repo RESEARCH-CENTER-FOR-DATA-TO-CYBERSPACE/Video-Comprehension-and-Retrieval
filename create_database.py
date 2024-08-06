@@ -7,17 +7,20 @@ parser = argparse.ArgumentParser(
                     description='create the elasticsearch database and add the documents along with their embeddings')
 
 parser.add_argument('-d', '--data_path', help='enter the path to the .csv file that contains the embedding vectors')
-parser.add_argument('--host', default='127.0.0.1', help='enter the host which the elasticsearch server listens to')
 parser.add_argument('-p', '--port', default=9200, help='enter the port which the elasticsearch server listens to')
 
 # Parse the arguments
 args = parser.parse_args()
 import os
-
+print('@', 111)
 # Establish connection with the elasticsearch server
-es = Elasticsearch([{'host': args.host, 'port': args.port, 'scheme':'http'}])
+es = Elasticsearch([{'host': '210.45.76.45', 'port': 9200, 'scheme': 'http'}])
+
+database_name = 'test_glm4v_1video'
+folders_path= "./test_glm_1v/"
+
 # Delete the Database if it exists
-es.options(ignore_status=[400, 404]).indices.delete(index='video_cases')
+es.options(ignore_status=[400, 404]).indices.delete(index=database_name)
 
 # Specify the mapping, which will describe the structure of each document
 mappings = {
@@ -35,24 +38,24 @@ mappings = {
 			"type": "dense_vector",
 			"dims": 768
 		},
-		"audio_text": {
-			"type": "text"
-		},
-		"audio_emb": {
-			"type": "dense_vector",
-			"dims": 768
-		}
+		# "audio_text": {
+		# 	"type": "text"
+		# },
+		# "audio_emb": {
+		# 	"type": "dense_vector",
+		# 	"dims": 768
+		# }
 	}
 }
 
 # Create the index
-result = es.indices.create(index="video_cases", mappings=mappings)
+result = es.indices.create(index=database_name, mappings=mappings)
 
-items = Path("./hash_folders").iterdir()
+items = Path(folders_path).iterdir()
 folder_names = [item.name for item in items if item.is_dir()]
 for folder_name in folder_names:
 
-	args.data_path = './hash_folders/' + folder_name + '/video_embedding.json'
+	args.data_path = folders_path + folder_name + '/video_embedding.json'
 
 	# Access the data that are going to be uploaded on the server
 	embeddings_df = pd.read_json(str(args.data_path))
@@ -64,10 +67,10 @@ for folder_name in folder_names:
 			'time': str(row['time']),
 			'image_text' : str(row['image_text']),
 			"image_emb": row['image_emb'],
-			'audio_text': str(row['audio_text']),
-			"audio_emb": row['audio_emb'],
+			# 'audio_text': str(row['audio_text']),
+			# "audio_emb": row['audio_emb'],
 		}
 		# 生成一个唯一的文档 ID
 		doc_id = f"{row['video_id']}_{row['time']}"
 		# 使用文档 ID 添加文档到索引中，确保不会覆盖
-		res = es.index(index="video_cases", id=doc_id, document=doc)
+		res = es.index(index=database_name, id=doc_id, document=doc)
