@@ -11,7 +11,6 @@ import os
 import time
 
 import google.generativeai as genai
-os.environ["GEMINI_API_KEY"] = "AIzaSyBryf_17n3dwghfWcz23BxPfVr2NCnx9NY"
 genai.configure(api_key=os.environ["GEMINI_API_KEY"])
 
 def upload_to_gemini(path, mime_type=None):
