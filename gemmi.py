@@ -65,7 +65,7 @@ model = genai.GenerativeModel(
 # TODO Make these files available on the local file system
 # You may need to update the file paths
 files = [
-  upload_to_gemini("/home/ygao/Video-Comprehension-and-Retrieval/static/hash_folders/0_经济支教问题.mp4", mime_type="video/mp4"),
+  upload_to_gemini("/home/qhuang/Video-Comprehension-and-Retrieval/z/output/output.mp4", mime_type="video/mp4"),
 ]
 
 # Some files have a processing delay. Wait for them to be ready.
