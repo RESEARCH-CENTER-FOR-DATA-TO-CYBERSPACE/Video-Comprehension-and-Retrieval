@@ -319,7 +319,7 @@ def speech2text(video, mdoel_path, filename):
 if __name__ == "__main__":
     # os.environ["CUDA_VISIBLE_DEVICES"] = "3"
     parser = argparse.ArgumentParser()
-    parser.add_argument("-v", "--video", type=str, required=False, default="./test_video")
+    parser.add_argument("-v", "--video", type=str, required=False, default="./videos")
     args = parser.parse_args()
 
 
