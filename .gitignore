@@ -9,3 +9,4 @@ __pycache__
 back.bak
 test.ipynb
 hash_folders_temp
+*.pdf
