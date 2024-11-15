@@ -139,3 +139,5 @@ websockets==11.0.3
 wheel==0.43.0
 yarg==0.1.9
 zope.interface==6.0
+gradio
+flask
